@@ -1,0 +1,6 @@
+<ion-view view-title="Timer" class="timer {{timerStatus}}">
+  <ion-content>
+    <h1>{{currentTime.seconds | secondsToDateTime | date:'HH:mm:ss'}}</h1>
+    <button class="btn btn-positive" on-tap="togglePlayPause()">Play/Pause</button>
+  </ion-content>
+</ion-view>

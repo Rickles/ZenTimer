@@ -1,0 +1,33 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Settings</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="closeSettings()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="doSettings()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Time</span>
+          <input type="number" ng-model="settingsData.time">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Warning</span>
+          <input type="number" ng-model="settingsData.warning">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Rest</span>
+          <input type="number" ng-model="settingsData.rest">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Rounds</span>
+          <input type="number" ng-model="settingsData.rounds">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Save</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>
