@@ -28,7 +28,7 @@ angular.module('starter.controllers', [])
   $scope.sounds = {
     time: '../audio/2-tones-4up.wav',
     warning: '../audio/chime-mid.wav',
-    rest: '../audio/Attention_Tone.wav'
+    rest: '../audio/Pleasant_Tone.wav'
   };
   // $ionicPlatform.ready(function(){
 
