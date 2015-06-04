@@ -23,9 +23,11 @@ angular.module('starter.controllers', [])
   $scope.currentTime = {seconds: $scope.settingsData.time*60};
   $scope.timerStatus = 'time';
   $scope.formerStatus = '';
+  $scope.wakeLock = 'bright';
+  $scope.needs_wakeLock = true;
   $scope.sounds = {
     time: '../audio/2-tones-4up.wav',
-    warning: '../audio/HighChime.wav',
+    warning: '../audio/chime-mid.wav',
     rest: '../audio/Attention_Tone.wav'
   };
   // $ionicPlatform.ready(function(){
@@ -67,16 +69,36 @@ angular.module('starter.controllers', [])
           media.play();
         });
       }
+      if ($scope.needs_wakeLock) {
+        if ($scope.wakeLock === 'bright') {
+          window.powerManagement.acquire(function() {
+            $scope.needs_wakeLock = false;
+          });
+        } else if ($scope.wakeLock === 'dim') {
+          window.powerManagement.dim(function() {
+            $scope.needs_wakeLock = false;
+          });
+        } else if ($scope.wakeLock === 'none') {
+          window.powerManagement.release(function() {
+            $scope.needs_wakeLock = false;
+          });
+        }
+      }
+    } else {
+      window.powerManagement.release(function() {
+        $scope.needs_wakeLock = false;
+      });
     }
+
   },1000);
   // Wakelock
-  $timeout(function () {
-    window.powerManagement.dim(function() {
-      console.log('Wakelock acquired');
-    }, function() {
-      console.log('Failed to acquire wakelock');
-    });
-  }, 3000)
+  // $timeout(function () {
+  //   window.powerManagement.dim(function() {
+  //     console.log('Wakelock acquired');
+  //   }, function() {
+  //     console.log('Failed to acquire wakelock');
+  //   });
+  // }, 3000);
   $scope.resetTimer = function () {
     $scope.timerStatus = 'time';
     $scope.currentTime.seconds = $scope.settingsData.time*60;
@@ -90,6 +112,7 @@ angular.module('starter.controllers', [])
       $scope.timerStatus = $scope.formerStatus;
       $scope.formerStatus = '';
     }
+    $scope.needs_wakeLock = true;
   }
   // Create the settings modal that we will use later
   $ionicModal.fromTemplateUrl('templates/settings.html', {
