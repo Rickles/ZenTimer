@@ -20,16 +20,41 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
-
+.card {
+	background-color: rgba(255,255,255,0.6);
+}
+.bg-image {
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	transition: -webkit-filter 0.5s ease;
+}
 .time {
-	background-color: #9FA;
+	.bg-image {		
+		-webkit-filter: hue-rotate(360deg);
+	}
 }
 .warning {
-	background-color: #ED9;
+	.bg-image {		
+		-webkit-filter: hue-rotate(304deg);
+	}
 }
 .rest {
-	background-color: #FA9;
+	.bg-image {		
+		-webkit-filter: hue-rotate(249deg);
+	}
 }
 .paused {
-	background-color: #CCC;
+	.bg-image {		
+		-webkit-filter: grayscale(100%);
+	}
+}
+.scroll {
+	text-align: center;
+	-webkit-filter: none;
+}
+h1 {
+	font-size: 6em;
 }
