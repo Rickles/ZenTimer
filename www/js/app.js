@@ -4,7 +4,11 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-
+window.powerManagement =  window.powerManagement || {
+  acquire: function () {},
+  dim: function () {},
+  release: function () {}
+};
 window.Media = function(src, mediaSuccess, mediaError, mediaStatus){
   // src: A URI containing the audio content. (DOMString)
   // mediaSuccess: (Optional) The callback that executes after a Media object has completed the current play, record, or stop action. (Function)

@@ -18,12 +18,12 @@ angular.module('starter.controllers', [])
     time: .25,
     warning: 10,
     rest: 5,
-    rounds: 0
+    rounds: 0,
+    wakeLock: 'bright'
   };
   $scope.currentTime = {seconds: $scope.settingsData.time*60};
   $scope.timerStatus = 'time';
   $scope.formerStatus = '';
-  $scope.wakeLock = 'bright';
   $scope.needs_wakeLock = true;
   $scope.sounds = {
     time: '../audio/2-tones-4up.wav',
@@ -70,15 +70,15 @@ angular.module('starter.controllers', [])
         });
       }
       if ($scope.needs_wakeLock) {
-        if ($scope.wakeLock === 'bright') {
+        if ($scope.settingsData.wakeLock === 'bright') {
           window.powerManagement.acquire(function() {
             $scope.needs_wakeLock = false;
           });
-        } else if ($scope.wakeLock === 'dim') {
+        } else if ($scope.settingsData.wakeLock === 'dim') {
           window.powerManagement.dim(function() {
             $scope.needs_wakeLock = false;
           });
-        } else if ($scope.wakeLock === 'none') {
+        } else if ($scope.settingsData.wakeLock === 'none') {
           window.powerManagement.release(function() {
             $scope.needs_wakeLock = false;
           });
@@ -89,16 +89,11 @@ angular.module('starter.controllers', [])
         $scope.needs_wakeLock = false;
       });
     }
-
+    console.log($scope.settingsData.wakeLock);
   },1000);
   // Wakelock
-  // $timeout(function () {
-  //   window.powerManagement.dim(function() {
-  //     console.log('Wakelock acquired');
-  //   }, function() {
-  //     console.log('Failed to acquire wakelock');
-  //   });
-  // }, 3000);
+  $scope.$watch('settingsData.wakeLock', function () { $scope.needs_wakeLock = true; }, true);
+  
   $scope.resetTimer = function () {
     $scope.timerStatus = 'time';
     $scope.currentTime.seconds = $scope.settingsData.time*60;
@@ -133,10 +128,11 @@ angular.module('starter.controllers', [])
 
   // Perform the settings action when the user submits the settings form
   $scope.doSettings = function() {
+    console.log('Doing settings', $scope.settingsData);
     angular.forEach($scope.settingsData, function (value, key) {
       $scope.settingsData.key = parseInt(value);
     });
-    console.log('Doing settings', $scope.settingsData);
+    alert('Doing settings', $scope.settingsData);
 
     // Simulate a settings delay. Remove this and replace with your settings
     // code if using a settings system
@@ -147,15 +143,8 @@ angular.module('starter.controllers', [])
   $scope.togglePlayPause();
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+.controller('SettingsCtrl', function($scope) {
+
 })
 .filter('secondsToDateTime', function() {
     return function(seconds) {

@@ -24,9 +24,14 @@
           <span class="input-label">Rounds</span>
           <input type="number" ng-model="settingsData.rounds">
         </label>
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Save</button>
-        </label>
+        <ion-list>
+          <ion-item class="item-divider">
+            Wakelock
+          </ion-item>
+           <ion-radio ng-model="settingsData.wakeLock" ng-value="'bright'">Bright</ion-radio>
+           <ion-radio ng-model="settingsData.wakeLock" ng-value="'dim'">Dim</ion-radio>
+           <ion-radio ng-model="settingsData.wakeLock" ng-value="'none'">None</ion-radio>
+        </ion-list>
       </div>
     </form>
   </ion-content>
