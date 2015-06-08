@@ -16,9 +16,9 @@ angular.module('starter.controllers', [])
   $scope.availableSounds = availableSounds;
   // Form data for the settings modal
   $scope.settingsData = {
-    time: .25,
-    warning: 10,
-    rest: 5,
+    time: 2,
+    warning: 30,
+    rest: 30,
     rounds: 0,
     wakeLock: 'bright',
     soundIndex: 0
@@ -70,8 +70,8 @@ angular.module('starter.controllers', [])
         $scope.needs_wakeLock = false;
       });
     }
-  },500);
-  // },1000);
+  // },500);
+  },1000);
   // Wakelock
   $scope.$watch('settingsData.wakeLock', function () { $scope.needs_wakeLock = true; }, true);
 
