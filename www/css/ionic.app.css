@@ -7688,7 +7688,8 @@ a.button {
   background-color: #AF9;
   background-size: cover;
   -webkit-background-size: cover;
-  transition: -webkit-filter 0.5s ease; }
+  transition: -webkit-filter 1s ease-in-out;
+  -webkit-transition: -webkit-filter 1s ease-in-out; }
 
 .time .bg-image {
   -webkit-filter: hue-rotate(360deg); }
@@ -7713,13 +7714,21 @@ h1 {
   -webkit-text-stroke-color: #999;
   font-family: Century Gothic, sans-serif; }
 
-.bar.bar-stable.bar-header {
-  background-color: transparent;
-  border-bottom: 0; }
-
 .left-buttons .button.button-positive.button-icon {
   background-color: #387ef5;
   border: 1px solid #24A;
   -webkit-border-radius: 30px;
   border-radius: 30px;
   height: 42px; }
+
+.button.button-icon.button-positive.ion-gear-a {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  background-color: #387ef5;
+  font-size: 4em;
+  border: 1px solid #24A;
+  -webkit-border-radius: 40px;
+  border-radius: 40px;
+  height: 72px;
+  width: 72px; }

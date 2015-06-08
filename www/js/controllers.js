@@ -19,6 +19,9 @@ angular.module('starter.controllers', [])
     time: 2,
     warning: 30,
     rest: 30,
+    // time: .15,
+    // warning: 5,
+    // rest: 5,
     rounds: 0,
     wakeLock: 'bright',
     soundIndex: 0

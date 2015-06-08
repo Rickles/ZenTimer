@@ -8,4 +8,6 @@
     <button class="button button-positive icon-left" ng-class="{'ion-play' : timerStatus == 'paused','ion-pause' : timerStatus != 'paused'}" on-tap="togglePlayPause()">Play/Pause</button>
     <button class="button button-assertive icon-left ion-refresh" on-tap="resetTimer()">Reset</button>
   </ion-content>
+  <button class="button button-icon button-positive ion-gear-a" 
+  on-tap="settings()"></button>
 </ion-view>
