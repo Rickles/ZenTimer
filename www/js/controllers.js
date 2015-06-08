@@ -12,20 +12,22 @@ angular.module('starter.controllers', [])
   $scope.mediaError = function () {
     alert('mediaError');
   }
+  $scope.loadSettings = function () {
+    var settingsObj = {};
+    angular.forEach(DefaultSettingsData, function (value, key) {
+      value = localStorage.getItem(key) || value;
+      if (Number(value) || Number(value) === 0) {
+        value = Number(value);
+      }
+      settingsObj[key] = value;
+    });
+    return settingsObj;
+  }
 
   $scope.availableSounds = availableSounds;
   // Form data for the settings modal
-  $scope.settingsData = {
-    time: 2,
-    warning: 30,
-    rest: 30,
-    // time: .15,
-    // warning: 5,
-    // rest: 5,
-    rounds: 0,
-    wakeLock: 'bright',
-    soundIndex: 0
-  };
+  $scope.settingsData = $scope.loadSettings();
+
   $scope.currentTime = {seconds: $scope.settingsData.time*60};
   $scope.timerStatus = 'time';
   $scope.formerStatus = '';
@@ -109,17 +111,27 @@ angular.module('starter.controllers', [])
   $scope.settings = function() {
     $scope.modal.show();
   };
-
+  $scope.clearSettings = function () {
+    angular.forEach(DefaultSettingsData, function (value, key) {
+      $scope.settingsData[key] = value;
+      localStorage.setItem(key, value);
+    });
+  };
   // Perform the settings action when the user submits the settings form
   $scope.doSettings = function() {
     console.log('Doing settings', $scope.settingsData);
     angular.forEach($scope.settingsData, function (value, key) {
-      $scope.settingsData.key = parseInt(value);
+      if (Number(value) || Number(value) === 0) {
+        value = Number(value);
+      }
+      $scope.settingsData.key = value;
+      localStorage.setItem(key, value);
     });
 
     $scope.sounds = $scope.availableSounds[$scope.settingsData.soundIndex];
     // Simulate a settings delay. Remove this and replace with your settings
     // code if using a settings system
+    $scope.resetTimer();
     $timeout(function() {
       $scope.closeSettings();
     }, 500);
