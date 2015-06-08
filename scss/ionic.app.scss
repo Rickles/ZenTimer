@@ -29,6 +29,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	position: fixed;
 	top: 0;
 	left: 0;
+  background-image: url('../img/bg-time.png');
+  background-color: #AF9;
+  background-size: cover;
+  -webkit-background-size: cover;
 	transition: -webkit-filter 0.5s ease;
 }
 .time {
@@ -56,5 +60,25 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	-webkit-filter: none;
 }
 h1 {
-	font-size: 6em;
+	font-size: 8em;
+   -webkit-text-fill-color: #222;
+   -webkit-text-stroke-width: 1px;
+   -webkit-text-stroke-color: #999;
+   font-family: Century Gothic, sans-serif;
+}
+.item-divider {
+	// background-color: #ADF;
+}
+.bar.bar-stable.bar-header {
+	background-color: transparent;
+	border-bottom: 0;
+}
+.left-buttons {
+	.button.button-positive.button-icon {
+		background-color: $positive;
+		border: 1px solid #24A;
+		-webkit-border-radius: 30px;
+		border-radius: 30px;
+		height: 42px;
+	}
 }

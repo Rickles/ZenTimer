@@ -13,41 +13,22 @@ angular.module('starter.controllers', [])
     alert('mediaError');
   }
 
+  $scope.availableSounds = availableSounds;
   // Form data for the settings modal
   $scope.settingsData = {
     time: .25,
     warning: 10,
     rest: 5,
     rounds: 0,
-    wakeLock: 'bright'
+    wakeLock: 'bright',
+    soundIndex: 0
   };
   $scope.currentTime = {seconds: $scope.settingsData.time*60};
   $scope.timerStatus = 'time';
   $scope.formerStatus = '';
   $scope.needs_wakeLock = true;
-  $scope.sounds = {
-    time: '../audio/2-tones-4up.wav',
-    warning: '../audio/chime-mid.wav',
-    rest: '../audio/Pleasant_Tone.wav'
-  };
-  // $ionicPlatform.ready(function(){
-
-  // });
-
-  // if (Media) {
-  //   $scope.sounds = {
-  //     time: new Audio("../audio/2-tones-4up.wav"),
-  //     warning: new Audio("../audio/HighChime.wav"),
-  //     rest: new Audio("../audio/Attention_Tone.wav")
-  //   }
-  // } else {
-    // $scope.sounds = {
-    //   time: MediaSrv.loadMedia("../audio/2-tones-4up.wav"),
-    //   warning: MediaSrv.loadMedia("../audio/HighChime.wav"),
-    //   rest: MediaSrv.loadMedia("../audio/Attention_Tone.wav")
-    // }
-  // }
-  // $scope.currentTime.minuteString = $scope.settingsData.time*60;
+  $scope.sounds = $scope.availableSounds[$scope.settingsData.soundIndex];
+  
   $interval(function () {
     if ($scope.timerStatus !== 'paused') {
       $scope.currentTime.seconds--;
@@ -89,11 +70,11 @@ angular.module('starter.controllers', [])
         $scope.needs_wakeLock = false;
       });
     }
-    console.log($scope.settingsData.wakeLock);
-  },1000);
+  },500);
+  // },1000);
   // Wakelock
   $scope.$watch('settingsData.wakeLock', function () { $scope.needs_wakeLock = true; }, true);
-  
+
   $scope.resetTimer = function () {
     $scope.timerStatus = 'time';
     $scope.currentTime.seconds = $scope.settingsData.time*60;
@@ -132,8 +113,8 @@ angular.module('starter.controllers', [])
     angular.forEach($scope.settingsData, function (value, key) {
       $scope.settingsData.key = parseInt(value);
     });
-    alert('Doing settings', $scope.settingsData);
 
+    $scope.sounds = $scope.availableSounds[$scope.settingsData.soundIndex];
     // Simulate a settings delay. Remove this and replace with your settings
     // code if using a settings system
     $timeout(function() {
@@ -181,7 +162,7 @@ angular.module('starter.controllers', [])
   }
 
   function _logError(src, err){
-    alert(src);
+    // alert(src);
     console.error('media error', {
       code: err.code,
       message: getErrorMessage(err.code)

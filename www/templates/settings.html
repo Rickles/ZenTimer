@@ -2,7 +2,7 @@
   <ion-header-bar>
     <h1 class="title">Settings</h1>
     <div class="buttons">
-      <button class="button button-clear" ng-click="closeSettings()">Close</button>
+      <button class="button button-balanced" ng-click="doSettings()">Done</button>
     </div>
   </ion-header-bar>
   <ion-content>
@@ -28,9 +28,15 @@
           <ion-item class="item-divider">
             Wakelock
           </ion-item>
-           <ion-radio ng-model="settingsData.wakeLock" ng-value="'bright'">Bright</ion-radio>
-           <ion-radio ng-model="settingsData.wakeLock" ng-value="'dim'">Dim</ion-radio>
-           <ion-radio ng-model="settingsData.wakeLock" ng-value="'none'">None</ion-radio>
+           <ion-radio name="wakeLock" ng-model="settingsData.wakeLock" ng-value="'bright'">Bright</ion-radio>
+           <ion-radio name="wakeLock" ng-model="settingsData.wakeLock" ng-value="'dim'">Dim</ion-radio>
+           <ion-radio name="wakeLock" ng-model="settingsData.wakeLock" ng-value="'none'">None</ion-radio>
+        </ion-list>
+        <ion-list>
+          <ion-item class="item-divider">
+            Sounds
+          </ion-item>
+           <ion-radio name="soundIndex" ng-repeat="(soundKey, soundPackage) in availableSounds" ng-model="settingsData.soundIndex" ng-value="soundKey">{{soundPackage.name}}</ion-radio>
         </ion-list>
       </div>
     </form>
