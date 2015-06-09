@@ -8,10 +8,7 @@ angular.module('starter.controllers', [])
   // listen for the $ionicView.enter event:
   //$scope.$on('$ionicView.enter', function(e) {
   //});
-  
-  $scope.mediaError = function () {
-    alert('mediaError');
-  }
+
   $scope.loadSettings = function () {
     var settingsObj = {};
     angular.forEach(DefaultSettingsData, function (value, key) {
@@ -40,6 +37,7 @@ angular.module('starter.controllers', [])
       if ($scope.currentTime.seconds === $scope.settingsData.warning) {
         $scope.timerStatus = 'warning';
         MediaSrv.loadMedia($scope.sounds[$scope.timerStatus]).then(function(media){
+          media.setVolume(1);
           media.play();
         });
       }
@@ -52,6 +50,7 @@ angular.module('starter.controllers', [])
           $scope.timerStatus = 'time';
         }
         MediaSrv.loadMedia($scope.sounds[$scope.timerStatus]).then(function(media){
+          media.setVolume(1);
           media.play();
         });
       }
@@ -171,13 +170,14 @@ angular.module('starter.controllers', [])
       };
 
       if($ionicPlatform.is('android')){src = '/android_asset/www/' + src.replace('../','');}
+      if($ionicPlatform.is('ios')){src = src.replace('../','');}
       defer.resolve(new $window.Media(src, mediaSuccess, mediaError, mediaStatus));
     });
     return defer.promise;
   }
 
   function _logError(src, err){
-    // alert(src);
+    alert(src);
     console.error('media error', {
       code: err.code,
       message: getErrorMessage(err.code)
