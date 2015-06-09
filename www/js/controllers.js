@@ -177,7 +177,7 @@ angular.module('starter.controllers', [])
   }
 
   function _logError(src, err){
-    alert(src);
+    // alert(src);
     console.error('media error', {
       code: err.code,
       message: getErrorMessage(err.code)
