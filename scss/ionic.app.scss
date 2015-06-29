@@ -67,8 +67,13 @@ h1 {
    -webkit-text-stroke-color: #999;
    font-family: Century Gothic, sans-serif;
 }
+.item-radio input:checked ~ .item-content {
+	background-color: #DFC;
+}
 .item-divider {
-	// background-color: #ADF;
+	background-color: $positive;
+	color: #fff;
+	text-transform: capitalize;
 }
 .left-buttons {
 	.button.button-positive.button-icon {

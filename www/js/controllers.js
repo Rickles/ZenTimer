@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $interval, $ionicPlatform, MediaSrv) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $interval, $ionicPlatform, MediaSrv,$ionicPopup, $ionicSlideBoxDelegate) {
   
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -15,18 +15,48 @@ angular.module('starter.controllers', [])
       value = localStorage.getItem(key) || value;
       if (Number(value) || Number(value) === 0) {
         value = Number(value);
+      } else if (typeof(value) === 'string') {
+        if (value.indexOf('{') !== -1) {
+          value = JSON.parse(value);
+        }
       }
       settingsObj[key] = value;
     });
     return settingsObj;
   }
+  $scope.populateSeconds = function (props_arr) {
+    props_arr = props_arr || ['time','rest','warning'];
+    if (typeof(props_arr) === 'string') {
+      props_arr = [props_arr];
+    }
+    angular.forEach(props_arr, function (value, key) {
+      if ($scope.settingsData[value].str.indexOf(':') !== -1) {
+        time_arr = $scope.settingsData[value].str.split(':');
+        time_arr[0] = Number(time_arr[0]);
+        for (var i = 0; i < time_arr.length; i++) {
+          if (time_arr.length-1 === i) {
+            $scope.settingsData[value].seconds = time_arr[i];
+          } else {
+            time_arr[i+1] = Number(time_arr[i+1])+(time_arr[i]*60);                        
+          }
+        };
+      } else if (Number($scope.settingsData[value].str) !== NaN) {
+        $scope.settingsData[value].seconds = Number($scope.settingsData[value].str);
+      }
+    });
+  }
 
+  var settingsSlideBox;
   $scope.availableSounds = availableSounds;
+  $scope.settingOptions = settingOptions;
   // Form data for the settings modal
+  // $scope.settingsData = DefaultSettingsData;
   $scope.settingsData = $scope.loadSettings();
+  $scope.populateSeconds();
 
-  $scope.currentTime = {seconds: $scope.settingsData.time*60};
+  $scope.currentTime = {seconds: $scope.settingsData.time.seconds};
   $scope.timerStatus = 'time';
+  $scope.activeOption = 'time';
   $scope.formerStatus = '';
   $scope.needs_wakeLock = true;
   $scope.sounds = $scope.availableSounds[$scope.settingsData.soundIndex];
@@ -34,23 +64,23 @@ angular.module('starter.controllers', [])
   $interval(function () {
     if ($scope.timerStatus !== 'paused') {
       $scope.currentTime.seconds--;
-      if ($scope.currentTime.seconds === $scope.settingsData.warning) {
+      if ($scope.currentTime.seconds === $scope.settingsData.warning.seconds) {
         $scope.timerStatus = 'warning';
         MediaSrv.loadMedia($scope.sounds[$scope.timerStatus]).then(function(media){
-          media.setVolume(1);
+          media.setVolume('1.0');
           media.play();
         });
       }
       if ($scope.currentTime.seconds === 0) {
-        if ($scope.settingsData.rest > 0 && $scope.timerStatus !== 'rest') {
+        if ($scope.settingsData.rest.seconds > 0 && $scope.timerStatus !== 'rest') {
           $scope.timerStatus = 'rest';
-          $scope.currentTime.seconds = $scope.settingsData.rest;
+          $scope.currentTime.seconds = $scope.settingsData.rest.seconds;
         } else {
-          $scope.currentTime.seconds = $scope.settingsData.time*60;
+          $scope.currentTime.seconds = $scope.settingsData.time.seconds;
           $scope.timerStatus = 'time';
         }
         MediaSrv.loadMedia($scope.sounds[$scope.timerStatus]).then(function(media){
-          media.setVolume(1);
+          media.setVolume('1.0');
           media.play();
         });
       }
@@ -81,7 +111,7 @@ angular.module('starter.controllers', [])
 
   $scope.resetTimer = function () {
     $scope.timerStatus = 'time';
-    $scope.currentTime.seconds = $scope.settingsData.time*60;
+    $scope.currentTime.seconds = $scope.settingsData.time.seconds;
     $scope.togglePlayPause();
   }
   $scope.togglePlayPause = function () {
@@ -109,6 +139,10 @@ angular.module('starter.controllers', [])
   // Open the settings modal
   $scope.settings = function() {
     $scope.modal.show();
+    if (settingsSlideBox === undefined) {
+      settingsSlideBox = $ionicSlideBoxDelegate.$getByHandle('settingsSlideBox');
+      settingsSlideBox.enableSlide(false);
+    }
   };
   $scope.clearSettings = function () {
     angular.forEach(DefaultSettingsData, function (value, key) {
@@ -119,9 +153,13 @@ angular.module('starter.controllers', [])
   // Perform the settings action when the user submits the settings form
   $scope.doSettings = function() {
     console.log('Doing settings', $scope.settingsData);
+    $scope.populateSeconds();
     angular.forEach($scope.settingsData, function (value, key) {
       if (Number(value) || Number(value) === 0) {
         value = Number(value);
+      } else if (typeof(value) === 'object') {
+        JSON.stringify(value);
+        value = JSON.stringify(value);
       }
       $scope.settingsData.key = value;
       localStorage.setItem(key, value);
@@ -131,11 +169,29 @@ angular.module('starter.controllers', [])
     // Simulate a settings delay. Remove this and replace with your settings
     // code if using a settings system
     $scope.resetTimer();
+    $scope.closeSettings();
     $timeout(function() {
-      $scope.closeSettings();
+      settingsSlideBox.previous();
     }, 500);
   };
   $scope.togglePlayPause();
+
+  $scope.showSettingOptions = function (optionSet) {
+    optionSet = optionSet || 'time';
+    $scope.activeOption = optionSet;
+    settingsSlideBox.next();
+  }
+  $scope.setSettingOption = function (selectedOption) {
+    if (selectedOption) {
+      if ($scope.settingsData[$scope.activeOption].str) {
+        $scope.settingsData[$scope.activeOption].str = selectedOption;
+      } else {
+        $scope.settingsData[$scope.activeOption] = selectedOption;
+      }
+    }
+    settingsSlideBox.previous();
+  }
+
 })
 
 .controller('SettingsCtrl', function($scope) {
