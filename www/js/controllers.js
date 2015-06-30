@@ -12,7 +12,9 @@ angular.module('starter.controllers', [])
   $scope.loadSettings = function () {
     var settingsObj = {};
     angular.forEach(DefaultSettingsData, function (value, key) {
-      value = localStorage.getItem(key) || value;
+      if (localStorage.getItem('version') !== undefined || localStorage.getItem('version') >= DefaultSettingsData['version']) {
+        value = localStorage.getItem(key) || value;
+      }
       if (Number(value) || Number(value) === 0) {
         value = Number(value);
       } else if (typeof(value) === 'string') {
@@ -25,7 +27,7 @@ angular.module('starter.controllers', [])
     return settingsObj;
   }
   $scope.populateSeconds = function (props_arr) {
-    props_arr = props_arr || ['time','rest','warning'];
+    props_arr = props_arr || ['time','rest','warning','setup'];
     if (typeof(props_arr) === 'string') {
       props_arr = [props_arr];
     }
@@ -54,8 +56,8 @@ angular.module('starter.controllers', [])
   $scope.settingsData = $scope.loadSettings();
   $scope.populateSeconds();
 
-  $scope.currentTime = {seconds: $scope.settingsData.time.seconds};
-  $scope.timerStatus = 'time';
+  $scope.currentTime = {seconds: $scope.settingsData.setup.seconds,roundCount:0};
+  $scope.timerStatus = 'setup';
   $scope.activeOption = 'time';
   $scope.formerStatus = '';
   $scope.needs_wakeLock = true;
@@ -72,9 +74,15 @@ angular.module('starter.controllers', [])
         });
       }
       if ($scope.currentTime.seconds === 0) {
-        if ($scope.settingsData.rest.seconds > 0 && $scope.timerStatus !== 'rest') {
+        if ($scope.settingsData.rest.seconds > 0 && $scope.timerStatus !== 'rest' && $scope.timerStatus !== 'setup') {
           $scope.timerStatus = 'rest';
           $scope.currentTime.seconds = $scope.settingsData.rest.seconds;
+          if ($scope.settingsData.rounds !== 0) {
+            $scope.currentTime.roundCount++;
+            if ($scope.currentTime.roundCount === $scope.settingsData.rounds) {
+              $scope.resetTimer();
+            }
+          }
         } else {
           $scope.currentTime.seconds = $scope.settingsData.time.seconds;
           $scope.timerStatus = 'time';
@@ -104,14 +112,15 @@ angular.module('starter.controllers', [])
         $scope.needs_wakeLock = false;
       });
     }
-  // },500);
-  },1000);
+  },500);
+  // },1000);
   // Wakelock
   $scope.$watch('settingsData.wakeLock', function () { $scope.needs_wakeLock = true; }, true);
 
   $scope.resetTimer = function () {
-    $scope.timerStatus = 'time';
-    $scope.currentTime.seconds = $scope.settingsData.time.seconds;
+    $scope.currentTime.seconds = $scope.settingsData.setup.seconds;
+    $scope.timerStatus = 'setup';
+    $scope.currentTime.roundCount = 0;
     $scope.togglePlayPause();
   }
   $scope.togglePlayPause = function () {

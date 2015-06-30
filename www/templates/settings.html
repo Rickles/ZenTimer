@@ -14,7 +14,7 @@
               Timer
             </ion-item>
             <label class="item item-input item-icon-right">
-              <span class="input-label">Time</span>
+              <span class="input-label">Timer</span>
               <input type="text" ng-model="settingsData.time.str">
               <i on-tap="showSettingOptions('time')" class="icon ion-more"></i>
             </label>
@@ -30,11 +30,11 @@
             </label>
             <label class="item item-input">
               <span class="input-label">Rounds</span>
-              <input type="number" ng-model="settingsData.rounds">
+              <input type="number" min="0" step="1" ng-model="settingsData.rounds">
             </label>
             <ion-list>
               <ion-item class="item-divider">
-                Wakelock
+                Keep Screen Awake
               </ion-item>
                <ion-radio name="wakeLock" ng-model="settingsData.wakeLock" ng-value="'bright'">Bright</ion-radio>
                <ion-radio name="wakeLock" ng-model="settingsData.wakeLock" ng-value="'dim'">Dim</ion-radio>
@@ -42,18 +42,19 @@
             </ion-list>
             <ion-list>
               <ion-item class="item-divider">
-                Sounds
+                Sound Pack
               </ion-item>
                <ion-radio name="soundIndex" ng-repeat="(soundKey, soundPackage) in availableSounds" ng-model="settingsData.soundIndex" ng-value="soundKey">{{soundPackage.name}}</ion-radio>
             </ion-list>
           </div>
         </form>
-        <button class="button button-assertive" on-tap="clearSettings()">Reset to Defaults</button>
+        <button class="button button-assertive wide-button" on-tap="clearSettings()">Reset to Defaults</button>
       </ion-slide>
       <ion-slide>
         <ion-list>
-          <ion-item class="item-divider item-icon-left"><i on-tap="setSettingOption()" class="icon ion-chevron-left"></i>{{activeOption}}</ion-item>
-          <ion-item ng-repeat="settingOption in settingOptions[activeOption]" on-tap="setSettingOption(settingOption)">{{settingOption}}</ion-item>
+          <ion-item class="item-divider item-icon-left"><i on-tap="setSettingOption()" class="icon ion-chevron-left"></i>{{settingOptions[activeOption].title}}</ion-item>
+          <ion-item class="item-icon-left setting-description"><i class="icon ion-ios-information-outline"></i><span>{{settingOptions[activeOption].description}}</span></ion-item>
+          <ion-item ng-repeat="settingOption in settingOptions[activeOption].choices" on-tap="setSettingOption(settingOption)">{{settingOption}}</ion-item>
         </ion-list>
       </ion-slide>
     </ion-slide-box>
