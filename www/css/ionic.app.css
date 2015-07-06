@@ -7684,12 +7684,23 @@ a.button {
   position: fixed;
   top: 0;
   left: 0;
-  background-image: url('../img/bg-time.png');
+  background-image: url('../img/bottles.jpg');
   background-color: #AF9;
   background-size: cover;
+  -webkit-background-position-x: center;
+  background-position-x: center;
   -webkit-background-size: cover;
   transition: -webkit-filter 1s ease-in-out;
   -webkit-transition: -webkit-filter 1s ease-in-out; }
+
+input[readonly="true"] {
+  text-transform: capitalize; }
+
+.settingOption {
+  text-transform: capitalize; }
+
+input[readonly="true"]:not(.cloned-text-input) {
+  background-color: transparent; }
 
 .setup .bg-image {
   -webkit-filter: hue-rotate(467deg); }
@@ -7746,14 +7757,16 @@ h2 {
   border-radius: 30px;
   height: 42px; }
 
-.button.button-icon.button-positive.ion-gear-a {
+.button.button-icon.button-positive.ion-ios-settings {
   position: fixed;
   right: 30px;
   bottom: 30px;
   background-color: #387ef5;
-  font-size: 4em;
-  border: 1px solid #24A;
+  font-size: 2.5em;
   -webkit-border-radius: 40px;
   border-radius: 40px;
-  height: 72px;
-  width: 72px; }
+  height: 65px;
+  width: 65px;
+  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
+  -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28); }

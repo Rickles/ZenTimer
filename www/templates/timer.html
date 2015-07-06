@@ -1,7 +1,8 @@
 <ion-view class="timer {{timerStatus}}">
   <!-- <img class="bg-image" src="img/bg-time.png" /> -->
-  <div class="bg-image"></div>
+  <div class="bg-image" style="background-image: url('../img/{{settingsData.background}}.jpg');"></div>
   <ion-content>
+  <h2>{{settingOptions[timerStatus].title}}</h2>
   	<div class="card">
 	    <h1>{{currentTime.seconds | secondsToDateTime | date:'mm:ss'}}</h1>
     <h2 ng-show="settingsData.rounds !== 0">Round: {{currentTime.roundCount+1}}</h2>
@@ -9,6 +10,6 @@
     <button class="button button-positive icon-left" ng-class="{'ion-play' : timerStatus == 'paused','ion-pause' : timerStatus != 'paused'}" on-tap="togglePlayPause()">Play/Pause</button>
     <button class="button button-assertive icon-left ion-refresh" on-tap="resetTimer()">Reset</button>
   </ion-content>
-  <button class="button button-icon button-positive ion-gear-a" 
+  <button class="button button-icon button-positive ion-ios-settings" 
   on-tap="settings()"></button>
 </ion-view>

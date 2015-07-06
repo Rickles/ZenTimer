@@ -16,17 +16,19 @@ var availableSounds = [{
     }
 ];
 var DefaultSettingsData = {
-  // time: {str:'0:03'},
-  // warning: {str:'0:01'},
-  // rest: {str:'0:02'},
   version: 1,
-  time: {str:'2:00'},
-  warning: {str:'0:30'},
-  rest: {str:'0:30'},
+  time: {str:'0:03'},
+  warning: {str:'0:01'},
+  rest: {str:'0:02'},
+  setup: {str:'0:02'},
+  // time: {str:'2:00'},
+  // warning: {str:'0:30'},
+  // rest: {str:'0:30'},
+  // setup: {str:'0:05'},
   rounds: 0,
   wakeLock: 'bright',
   soundIndex: 0,
-  setup: {str:'0:05'}
+  background: 'bottles'
 };
 var settingOptions = {
   time: {
@@ -90,5 +92,22 @@ var settingOptions = {
       '0:30',
       '0:45',
       '1:00'
-  ]}
+  ]},
+  paused: {
+    title: 'Paused'
+  },
+  background: {
+    title: 'Background',
+    description: 'Select the image that you would like to use as a background',
+    choices: [
+      'bottles',
+      'tree',
+      'ladybug',
+      'lake',
+      'motion',
+      'blotted',
+      'cactus',
+      'dew',
+      'leaves'
+    ]}
 };

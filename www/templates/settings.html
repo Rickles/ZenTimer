@@ -28,9 +28,19 @@
               <input type="text" ng-model="settingsData.rest.str">
               <i on-tap="showSettingOptions('rest')" class="icon ion-more"></i>
             </label>
+            <label class="item item-input item-icon-right">
+              <span class="input-label">Setup</span>
+              <input type="text" ng-model="settingsData.setup.str">
+              <i on-tap="showSettingOptions('setup')" class="icon ion-more"></i>
+            </label>
             <label class="item item-input">
               <span class="input-label">Rounds</span>
               <input type="number" min="0" step="1" ng-model="settingsData.rounds">
+            </label>
+            <label class="item item-input item-icon-right">
+              <span class="input-label">Background</span>
+              <input type="text" readonly="true" ng-model="settingsData.background">
+              <i on-tap="showSettingOptions('background')" class="icon ion-more"></i>
             </label>
             <ion-list>
               <ion-item class="item-divider">
@@ -54,7 +64,7 @@
         <ion-list>
           <ion-item class="item-divider item-icon-left"><i on-tap="setSettingOption()" class="icon ion-chevron-left"></i>{{settingOptions[activeOption].title}}</ion-item>
           <ion-item class="item-icon-left setting-description"><i class="icon ion-ios-information-outline"></i><span>{{settingOptions[activeOption].description}}</span></ion-item>
-          <ion-item ng-repeat="settingOption in settingOptions[activeOption].choices" on-tap="setSettingOption(settingOption)">{{settingOption}}</ion-item>
+          <ion-item class="settingOption" ng-repeat="settingOption in settingOptions[activeOption].choices" on-tap="setSettingOption(settingOption)">{{settingOption}}</ion-item>
         </ion-list>
       </ion-slide>
     </ion-slide-box>

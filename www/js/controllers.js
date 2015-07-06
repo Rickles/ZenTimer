@@ -66,7 +66,7 @@ angular.module('starter.controllers', [])
   $interval(function () {
     if ($scope.timerStatus !== 'paused') {
       $scope.currentTime.seconds--;
-      if ($scope.currentTime.seconds === $scope.settingsData.warning.seconds) {
+      if ($scope.currentTime.seconds === $scope.settingsData.warning.seconds && $scope.timerStatus !== 'setup') {
         $scope.timerStatus = 'warning';
         MediaSrv.loadMedia($scope.sounds[$scope.timerStatus]).then(function(media){
           media.setVolume('1.0');
