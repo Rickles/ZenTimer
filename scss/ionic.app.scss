@@ -31,10 +31,12 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	left: 0;
   background-image: url('../img/bottles.jpg');
   background-color: #AF9;
-  background-size: cover;
-  -webkit-background-position-x: center;
-  background-position-x: center;
-  -webkit-background-size: cover;
+  -webkit-background-size: auto 120%;
+  background-size: auto 120%;
+  -webkit-background-position-x: 50%;
+  background-position-x: 50%;
+  -webkit-background-position-y: 50%;
+  background-position-y: 50%;
 	transition: -webkit-filter 1s ease-in-out;
 	-webkit-transition: -webkit-filter 1s ease-in-out;
 }

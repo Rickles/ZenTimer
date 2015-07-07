@@ -62,7 +62,7 @@ angular.module('starter.controllers', [])
   $scope.formerStatus = '';
   $scope.needs_wakeLock = true;
   $scope.sounds = $scope.availableSounds[$scope.settingsData.soundIndex];
-  
+
   $interval(function () {
     if ($scope.timerStatus !== 'paused') {
       $scope.currentTime.seconds--;
@@ -112,8 +112,8 @@ angular.module('starter.controllers', [])
         $scope.needs_wakeLock = false;
       });
     }
-  },500);
-  // },1000);
+  // },500);
+  },1000);
   // Wakelock
   $scope.$watch('settingsData.wakeLock', function () { $scope.needs_wakeLock = true; }, true);
 

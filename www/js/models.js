@@ -13,21 +13,31 @@ var availableSounds = [{
       time: '../audio/Concern.wav',
       warning: '../audio/Hollow.wav',
       rest: '../audio/GentleRoll.wav'
+    },{
+      name: 'Enchanting',
+      time: '../audio/hell-yeah.mp3',
+      warning: '../audio/microbounce.mp3',
+      rest: '../audio/happy-ending.mp3'
+    },{
+      name: 'Silly',
+      time: '../audio/coins.mp3',
+      warning: '../audio/hurry.mp3',
+      rest: '../audio/credulous.mp3'
     }
 ];
 var DefaultSettingsData = {
   version: 1,
-  time: {str:'0:03'},
-  warning: {str:'0:01'},
-  rest: {str:'0:02'},
-  setup: {str:'0:02'},
-  // time: {str:'2:00'},
-  // warning: {str:'0:30'},
-  // rest: {str:'0:30'},
-  // setup: {str:'0:05'},
+  // time: {str:'0:04'},
+  // warning: {str:'0:02'},
+  // rest: {str:'0:02'},
+  // setup: {str:'0:02'},
+  time: {str:'2:00'},
+  warning: {str:'0:30'},
+  rest: {str:'0:30'},
+  setup: {str:'0:10'},
   rounds: 0,
   wakeLock: 'bright',
-  soundIndex: 0,
+  soundIndex: 3,
   background: 'bottles'
 };
 var settingOptions = {
