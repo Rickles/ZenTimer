@@ -1,23 +1,13 @@
 var availableSounds = [{
-      name: 'Look Around',
-      time: '../audio/Looking_Up.wav',
-      warning: '../audio/Puff.wav',
-      rest: '../audio/Looking_Down.wav'
-    },{
-      name: 'Jump Around',
-      time: '../audio/Jump_Up.wav',
-      warning: '../audio/Concern.wav',
-      rest: '../audio/Jump_Down.wav'
-    },{
-      name: 'Breezy',
-      time: '../audio/Concern.wav',
-      warning: '../audio/Hollow.wav',
-      rest: '../audio/GentleRoll.wav'
-    },{
       name: 'Enchanting',
       time: '../audio/hell-yeah.mp3',
       warning: '../audio/microbounce.mp3',
       rest: '../audio/happy-ending.mp3'
+    },{
+      name: 'Sci Fi',
+      time: '../audio/short-trip-to-the-bottom.mp3',
+      warning: '../audio/strike.mp3',
+      rest: '../audio/told-you-so.mp3'
     },{
       name: 'Silly',
       time: '../audio/coins.mp3',
@@ -37,7 +27,7 @@ var DefaultSettingsData = {
   setup: {str:'0:10'},
   rounds: 0,
   wakeLock: 'bright',
-  soundIndex: 3,
+  soundIndex: 0,
   background: 'bottles'
 };
 var settingOptions = {
